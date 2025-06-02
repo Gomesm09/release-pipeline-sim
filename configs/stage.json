@@ -1,0 +1,5 @@
+{
+  "env": "staging",
+  "version": "1.0.0",
+  "deployed_by": "github-actions"
+}
