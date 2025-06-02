@@ -1,0 +1,25 @@
+name: Simulated CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Run fake build
+      run: bash scripts/build.sh
+
+    - name: Deploy to Dev
+      run: echo "🚀 Deploying to Development..."
+
+    - name: Promote to Staging
+      run: echo "🚀 Promoting to Staging..."
+
+    - name: Promote to Production
+      run: echo "🚀 Promoting to Production..."
