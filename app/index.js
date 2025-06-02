@@ -1,1 +1,1 @@
-console.log("🚀 Hello from your fake app! This is your release pipeline simulation.");
+console.log("Hello from release simulation!");
