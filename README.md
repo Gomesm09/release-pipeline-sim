@@ -17,6 +17,24 @@ This project simulates a real-world CI/CD release engineering pipeline, showcasi
 
 ---
 
+## 🧪 How to Reproduce Locally
+
+You can simulate the full release flow manually:
+
+```bash
+# Promote dev to stage
+./scripts/promote.sh dev stage
+
+# Promote stage to prod
+./scripts/promote.sh stage prod
+
+# Build for each environment
+./scripts/build.sh dev
+./scripts/build.sh stage
+./scripts/build.sh prod
+
+---
+
 🧠 **Built by:** Michael Gomes  
 🛠️ **Role:** Release Engineer  
 📅 **Created:** June 2025
