@@ -2,13 +2,18 @@
 
 ![CI/CD Workflow](https://github.com/Gomesm09/release-pipeline-sim/actions/workflows/release.yml/badge.svg)
 
-This project simulates a real-world CI/CD release engineering pipeline. It showcases:
+This project simulates a real-world CI/CD release engineering pipeline, showcasing environment promotion, artifact creation, version tagging, and deployment simulation — all powered by GitHub Actions.
 
-- ✅ CI/CD with GitHub Actions (Jenkins optional)
-- ✅ Build automation scripting
-- ✅ Git version tagging
-- ✅ Promotion from dev → staging → production
-- ✅ Simulated artifact deployment
+---
+
+## 🔧 Features
+
+- ✅ Environment promotion: `dev` → `stage` → `prod`
+- ✅ Build artifact generation (`.tar.gz`)
+- ✅ Git version tagging (e.g. `v1.1.6`)
+- ✅ CI/CD automation via GitHub Actions
+- ✅ Production artifacts auto-uploaded to [GitHub Releases](https://github.com/Gomesm09/release-pipeline-sim/releases)
+- ✅ Manual script support for local simulation
 
 ---
 
