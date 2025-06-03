@@ -1,0 +1,31 @@
+name: CI/CD Simulation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Bash permissions
+        run: chmod +x scripts/*.sh
+
+      - name: Build app for dev
+        run: ./scripts/build.sh dev
+
+      - name: Promote dev to stage
+        run: ./scripts/promote.sh dev stage
+
+      - name: Build app for stage
+        run: ./scripts/build.sh stage
+
+      - name: Fake deploy to staging
+        run: echo "🚀 Deploying to staging..."
+
+      # You can add a production step here later triggered by tag or manual dispatch
