@@ -1,9 +1,14 @@
 name: CI/CD Simulation
 
 on:
+ name: CI/CD Simulation
+
+on:
   push:
     branches:
       - main
+    tags:
+      - 'v*.*.*'  # Any tag like v1.0.0 or v2.3.4
 
 jobs:
   release:
@@ -16,16 +21,39 @@ jobs:
       - name: Set up Bash permissions
         run: chmod +x scripts/*.sh
 
+      - name: Check if this is a tag
+        id: is_tag
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            echo "is_tag=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_tag=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build app for dev
+        if: steps.is_tag.outputs.is_tag == 'false'
         run: ./scripts/build.sh dev
 
       - name: Promote dev to stage
+        if: steps.is_tag.outputs.is_tag == 'false'
         run: ./scripts/promote.sh dev stage
 
       - name: Build app for stage
+        if: steps.is_tag.outputs.is_tag == 'false'
         run: ./scripts/build.sh stage
 
       - name: Fake deploy to staging
+        if: steps.is_tag.outputs.is_tag == 'false'
         run: echo "🚀 Deploying to staging..."
 
-      # You can add a production step here later triggered by tag or manual dispatch
+      - name: Promote stage to prod
+        if: steps.is_tag.outputs.is_tag == 'true'
+        run: ./scripts/promote.sh stage prod
+
+      - name: Build app for prod
+        if: steps.is_tag.outputs.is_tag == 'true'
+        run: ./scripts/build.sh prod
+
+      - name: Fake deploy to production
+        if: steps.is_tag.outputs.is_tag == 'true'
+        run: echo "🚀 Deploying to PRODUCTION!!! 🔥"
