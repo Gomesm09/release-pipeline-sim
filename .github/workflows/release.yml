@@ -1,14 +1,11 @@
 name: CI/CD Simulation
 
 on:
- name: CI/CD Simulation
-
-on:
   push:
     branches:
       - main
     tags:
-      - 'v*.*.*'  # Any tag like v1.0.0 or v2.3.4
+      - 'v*.*.*'
 
 jobs:
   release:
@@ -22,13 +19,13 @@ jobs:
         run: chmod +x scripts/*.sh
 
       - name: Check if this is a tag
-        id: is_tag
-        run: |
-          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
-            echo "is_tag=true" >> $GITHUB_OUTPUT
-          else
-            echo "is_tag=false" >> $GITHUB_OUTPUT
-          fi
+  id: is_tag
+  run: |
+    if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+      echo "is_tag=true" >> $GITHUB_OUTPUT
+    else
+      echo "is_tag=false" >> $GITHUB_OUTPUT
+    fi
 
       - name: Build app for dev
         if: steps.is_tag.outputs.is_tag == 'false'
