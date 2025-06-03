@@ -54,3 +54,9 @@ jobs:
       - name: Fake deploy to production
         if: steps.is_tag.outputs.is_tag == 'true'
         run: echo "🚀 Deploying to PRODUCTION!!! 🔥"
+
+      - name: Upload prod artifact to GitHub Release
+        if: steps.is_tag.outputs.is_tag == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/app-prod.tar.gz
