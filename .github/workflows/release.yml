@@ -2,14 +2,15 @@ name: CI/CD Simulation
 
 on:
   push:
-    branches:
-      - main
     tags:
       - 'v*.*.*'
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.deployment.outputs.environment_url }}
 
     steps:
       - name: Checkout code
