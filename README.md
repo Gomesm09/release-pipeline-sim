@@ -36,5 +36,5 @@ You can simulate the full release flow manually:
 ---
 
 🧠 **Built by:** Michael Gomes  
-🛠️ **Role:** Devops Release Engineer  
+🛠️ **Role:** Devops Release Manager  
 📅 **Created:** June 2025
