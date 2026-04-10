@@ -18,6 +18,10 @@ fi
 cp "$FROM_FILE" "$TO_FILE"
 
 # Use portable sed (works on macOS and Linux)
-sed -i '' "s/\"env\": \".*\"/\"env\": \"${TO_ENV}\"/" "$TO_FILE"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  sed -i '' "s/\"env\": \".*\"/\"env\": \"${TO_ENV}\"/" "$TO_FILE"
+else
+  sed -i "s/\"env\": \".*\"/\"env\": \"${TO_ENV}\"/" "$TO_FILE"
+fi
 
 echo "✅ Promoted $FROM_ENV → $TO_ENV: Created $TO_FILE"
