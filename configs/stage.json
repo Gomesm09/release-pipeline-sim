@@ -1,5 +1,5 @@
 {
-  "env": "staging",
+  "env": "stage",
   "version": "1.0.0",
   "deployed_by": "github-actions"
 }

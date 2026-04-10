@@ -66,8 +66,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Notify on release success
-        if: steps.is_tag.outputs.is_tag == 'true'
+        if: steps.is_tag.outputs.is_tag == 'true' && success()
         run: |
           curl -X POST -H "Content-Type: application/json" \
                -d "{\"text\":\"✅ Release completed for tag ${{ github.ref_name }} by ${{ github.actor }}!\"}" \
+               "${{ secrets.WEBHOOK_URL }}"
+
+      - name: Notify on release failure
+        if: failure()
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+               -d "{\"text\":\"❌ Release FAILED for tag ${{ github.ref_name }} by ${{ github.actor }}. Check the Actions log for details.\"}" \
                "${{ secrets.WEBHOOK_URL }}"

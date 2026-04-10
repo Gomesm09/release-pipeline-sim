@@ -1,1 +1,1 @@
-console.log("Hello from release simulation!");
+console.log('Hello world');
