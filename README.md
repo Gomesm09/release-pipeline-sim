@@ -10,7 +10,7 @@ This project simulates a real-world CI/CD release engineering pipeline, showcasi
 
 - ✅ Environment promotion: `dev` → `stage` → `prod`
 - ✅ Build artifact generation (`.tar.gz`)
-- ✅ Git version tagging (e.g. `v1.2.2`)
+- ✅ Git version tagging (e.g. `v1.2.3`)
 - ✅ CI/CD automation via GitHub Actions
 - ✅ Production artifacts auto-uploaded to [GitHub Releases](https://github.com/Gomesm09/release-pipeline-sim/releases)
 - ✅ Manual script support for local simulation
@@ -36,5 +36,5 @@ You can simulate the full release flow manually:
 ---
 
 🧠 **Built by:** Michael Gomes  
-🛠️ **Role:** Release Engineer  
+🛠️ **Role:** Devops Release Manager  
 📅 **Created:** June 2025
