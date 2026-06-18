@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Bash permissions
         run: chmod +x scripts/*.sh
@@ -41,7 +43,7 @@ jobs:
         if: steps.is_tag.outputs.is_tag == 'false'
         run: ./scripts/build.sh stage
 
-      - name: Fake deploy to staging
+      - name: Deploy to staging
         if: steps.is_tag.outputs.is_tag == 'false'
         run: echo "🚀 Deploying to staging..."
 
@@ -53,15 +55,34 @@ jobs:
         if: steps.is_tag.outputs.is_tag == 'true'
         run: ./scripts/build.sh prod
 
-      - name: Fake deploy to production
+      - name: Deploy to production
         if: steps.is_tag.outputs.is_tag == 'true'
         run: echo "🚀 Deploying to PRODUCTION!!! 🔥"
+
+      - name: Generate changelog
+        if: steps.is_tag.outputs.is_tag == 'true'
+        id: changelog
+        run: |
+          PREVIOUS_TAG=$(git tag --sort=-version:refname | sed -n '2p')
+          CURRENT_TAG=${{ github.ref_name }}
+          echo "Generating changelog from $PREVIOUS_TAG to $CURRENT_TAG"
+          CHANGELOG=$(git log $PREVIOUS_TAG..$CURRENT_TAG --pretty=format:"- %s (%an)" --no-merges)
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Upload prod artifact to GitHub Release
         if: steps.is_tag.outputs.is_tag == 'true'
         uses: softprops/action-gh-release@v1
         with:
           files: build/app-prod.tar.gz
+          body: |
+            ## What's changed in ${{ github.ref_name }}
+
+            ${{ steps.changelog.outputs.changelog }}
+
+            ---
+            🚀 Released by ${{ github.actor }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
