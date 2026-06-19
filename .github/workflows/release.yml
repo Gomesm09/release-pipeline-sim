@@ -58,8 +58,8 @@ jobs:
       - name: Deploy to production
         if: steps.is_tag.outputs.is_tag == 'true'
         run: echo "🚀 Deploying to PRODUCTION!!! 🔥"
-	
-	- name: Run smoke tests
+
+      - name: Run smoke tests
         if: steps.is_tag.outputs.is_tag == 'true'
         run: |
           chmod +x scripts/smoke-test.sh
