@@ -1,6 +1,6 @@
 # Release Pipeline Simulator 🚀
 
-![CI/CD Workflow](https://github.com/Gomesm09/release-pipeline-sim/actions/workflows/release.yml/badge.svg?event=push)
+![CI/CD Workflow](https://github.com/Gomesm09/release-pipeline-sim/actions/workflows/release.yml/badge.svg?branch=v1.2.8)
 
 This project simulates a real-world CI/CD release engineering pipeline, showcasing environment promotion, artifact creation, version tagging, and deployment simulation — all powered by GitHub Actions.
 
